@@ -3,7 +3,7 @@
   "name": "ecs",
   "version": "1.0.0",
   "description": "A template for kick starting a Cloudflare Workers project",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
