@@ -1,4 +1,4 @@
-name = "doh-wrapper"
+name = "ecs"
 main = "index.ts"
 workers_dev = true
 compatibility_date = "2023-11-04"
