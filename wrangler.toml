@@ -1,5 +1,14 @@
 name = "ecs"
-main = "index.js"
+main = "index.ts"
 workers_dev = true
 compatibility_date = "2023-11-04"
-node_compat = true
+#node_compat = true
+
+[build]
+command = "npm run build"
+
+[build.upload]
+format = "service-worker"
+
+[build.upload.rules]
+type = "ESModule"
