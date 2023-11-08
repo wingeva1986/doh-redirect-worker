@@ -14,7 +14,10 @@
     "@cloudflare/workers-types": "^4.20230419.0",
     "@types/node": "^20.8.10",
     "typescript": "^5.0.4",
-    "wrangler": "^3.0.0"
+    "wrangler": "^3.0.0",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "ts-loader": "^9.2.6"
   },
   "dependencies": {
     "buffer": "^6.0.3",
