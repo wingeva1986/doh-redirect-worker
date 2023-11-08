@@ -55,6 +55,7 @@ async function handleRequest(request) {
     method: request.method,
     redirect: request.redirect
   })
+  console.log(newRequest.headers)
 
   return await fetch(newRequest)
 }
