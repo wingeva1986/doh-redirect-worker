@@ -5,6 +5,7 @@
   "description": "A template for kick starting a Cloudflare Workers project",
   "main": "index.ts",
   "scripts": {
+    "build":"webpack",
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
     "start": "wrangler dev"
