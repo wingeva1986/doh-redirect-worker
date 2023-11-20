@@ -6,11 +6,9 @@ const DOH_ADDRESS = "dns.google/dns-query"
 const r404 = new Response(null, {status: 404});
 
 // developers.cloudflare.com/workers/runtime-apis/fetch-event/#syntax-module-worker
-export default {
-    async fetch(r, env, ctx) {
-        return handleRequest(r);
-    },
-};
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
 
 async function handleRequest(request) {
     let res = r404;
