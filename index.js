@@ -27,7 +27,7 @@ async function handleRequest(request) {
         //const body = await request.clone().arrayBuffer()
         const dnsMsg = dnsPacket.decode(Buffer.from(query_string, 'base64'))
       console.log(dnsMsg)
-       /*
+       
         const ecsOption = {
           code: 'CLIENT_SUBNET',
           ip: clientIp,
@@ -43,15 +43,15 @@ async function handleRequest(request) {
         })
       
         dnsMsg.flags |= (1 << 15)
-        */
+        
         const modifiedBody = dnsPacket.encode(dnsMsg)
       
         const newURL = `https://${DOH_ADDRESS}`
         const newRequest = new Request(newURL, {
           body: modifiedBody,
           headers: {
-						'content-type': 'application/dns-message',
-					},
+	      'content-type': 'application/dns-message',
+	  },
           method: "POST",
         });
       
