@@ -49,11 +49,15 @@ async function handleRequest(request) {
         const newURL = `https://${DOH_ADDRESS}`
         const newRequest = new Request(newURL, {
           body: modifiedBody,
-          headers: headers,
+          headers: {
+						'content-type': 'application/dns-message',
+					},
           method: "POST",
-        })
+        });
+      
         //
         res = await fetch(newRequest)
+      console.log(res.status)
     } 
     return res;
 }
