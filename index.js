@@ -25,7 +25,7 @@ async function handleRequest(request) {
         }
         //dns packet
         //const body = await request.clone().arrayBuffer()
-        const dnsMsg = dnsPacket.decode(Buffer.atob(query_string))
+        const dnsMsg = dnsPacket.decode(Buffer.from(query_string, 'base64'))
       
         const ecsOption = {
           code: 'CLIENT_SUBNET',
