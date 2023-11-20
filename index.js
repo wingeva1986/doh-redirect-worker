@@ -14,7 +14,7 @@ async function handleRequest(request) {
     let res = r404;
     const { method, headers, url } = request
     let clientIp =headers.get('CF-Connecting-IP');
-    clientIp = '104.28.156.221';
+    clientIp = '182.239.127.137';
     const sourcePrefixLength = clientIp.includes(':') ? 48 : 24;
     //const ecs = '&edns_client_subnet=221.179.3.0/24&ecs=221.179.3.0/24';//clientIp?`&edns_client_subnet=${clientIp}/${sourcePrefixLength}`:'';
     const searchParams = new URL(url).searchParams
