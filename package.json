@@ -15,7 +15,7 @@
     "wrangler": "^3.0.0"
   },
   "dependencies": {
-    "buffer": "^6.0.3",
-    "dns-packet": "^5.6.1"
+    "node:buffer": "^6.0.3",
+    "node:dns-packet": "^5.6.1"
   }
 }
