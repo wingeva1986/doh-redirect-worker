@@ -1,5 +1,5 @@
-const dnsPacket = require('dns-packet')
-const Buffer = require('buffer').Buffer
+const dnsPacket = require('node:dns-packet')
+const Buffer = require('node:buffer').Buffer
 import { connect } from 'cloudflare:sockets';
 
 const DOH_ADDRESS = "https://dns.google/dns-query"
