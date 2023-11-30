@@ -4,6 +4,7 @@ workers_dev = true
 compatibility_date = "2023-11-04"
 #node_compat = true
 type = "javascript"
+compatibility_flags = [ "nodejs_compat" ]
 
 [build]
 command = "npm install && npm run build"
