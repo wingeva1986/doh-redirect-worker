@@ -122,16 +122,7 @@ async function handleRequest(request) {
 	await writer.write(modifiedBody);
 	res = new Response(socket.readable, { headers: { "Content-Type": "application/dns-message" } });
 	    
-       /* const newRequest = new Request(DOH_ADDRESS, {
-          body: modifiedBody,
-          headers: {
-	      'content-type': 'application/dns-message',
-	  },
-          method: "POST",
-        });
-      
-        
-        res = await fetch(newRequest)*/
+
         //console.log(res.status)
     } 
     return res;
