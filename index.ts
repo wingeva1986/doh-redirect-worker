@@ -1,5 +1,5 @@
-import * as dnsPacket from 'node:dns-packet'
-import { Buffer } from 'node:buffer'
+import * as dnsPacket from 'dns-packet'
+import { Buffer } from 'buffer'
 
 const DOH_ADDRESS = "cloudflare-dns.com/dns-query"
 
