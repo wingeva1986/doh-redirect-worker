@@ -1,7 +1,7 @@
 const dnsPacket = require('dns-packet')
 const Buffer = require('buffer').Buffer
 
-const DOH_ADDRESS = "https://8.8.4.4/dns-query"
+const DOH_ADDRESS = "https://dns.google/dns-query"
 
 const r404 = new Response(null, {status: 404});
 const ECS_CODE = 'CLIENT_SUBNET';
