@@ -1,9 +1,11 @@
 const dnsPacket = require('dns-packet')
 const Buffer = require('buffer').Buffer
 
-const DOH_ADDRESS = "dns.google/dns-query"
+const DOH_ADDRESS = "https://8.8.4.4/dns-query"
 
 const r404 = new Response(null, {status: 404});
+const ECS_CODE = 'CLIENT_SUBNET';
+const ECS_IP='182.239.127.137';//hkm data center
 
 // developers.cloudflare.com/workers/runtime-apis/fetch-event/#syntax-module-worker
 addEventListener('fetch', event => {
@@ -13,8 +15,7 @@ addEventListener('fetch', event => {
 async function handleRequest(request) {
     let res = r404;
     const { method, headers, url } = request
-    let clientIp =headers.get('CF-Connecting-IP');
-    clientIp = '182.239.127.137';//hkm data center
+    let clientIp = ECS_IP || headers.get('CF-Connecting-IP');
     const sourcePrefixLength = clientIp.includes(':') ? 48 : 24;
     //const ecs = '&edns_client_subnet=221.179.3.0/24&ecs=221.179.3.0/24';//clientIp?`&edns_client_subnet=${clientIp}/${sourcePrefixLength}`:'';
     const searchParams = new URL(url).searchParams
@@ -27,10 +28,10 @@ async function handleRequest(request) {
         //dns packet
         //const body = await request.clone().arrayBuffer()
         const dnsMsg = dnsPacket.decode(Buffer.from(query_string, 'base64'))
-      console.log(dnsMsg)
+        //console.log(dnsMsg)
        
         const ecsOption = {
-          code: 'CLIENT_SUBNET',
+          code: ECS_CODE,
           ip: clientIp,
           sourcePrefixLength: sourcePrefixLength,
           scopePrefixLength: 0
@@ -47,8 +48,7 @@ async function handleRequest(request) {
         
         const modifiedBody = dnsPacket.encode(dnsMsg)
       
-        const newURL = `https://${DOH_ADDRESS}`
-        const newRequest = new Request(newURL, {
+        const newRequest = new Request(DOH_ADDRESS, {
           body: modifiedBody,
           headers: {
 	      'content-type': 'application/dns-message',
@@ -56,9 +56,9 @@ async function handleRequest(request) {
           method: "POST",
         });
       
-        //
+        
         res = await fetch(newRequest)
-      console.log(res.status)
+        //console.log(res.status)
     } 
     return res;
 }
