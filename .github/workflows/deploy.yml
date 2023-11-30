@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "index.js"
+      - "index.ts"
       - "wrangler.toml"
 
 jobs:
@@ -14,6 +14,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
 
       - name: Publish
         uses: cloudflare/wrangler-action@2.0.0
