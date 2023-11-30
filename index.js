@@ -1,7 +1,9 @@
 const dnsPacket = require('dns-packet')
 const Buffer = require('buffer').Buffer
+const connect = require('cloudflare:sockets').connect;
 
 const DOH_ADDRESS = "https://dns.google/dns-query"
+const DNS_ADDRESS = { hostname: "8.8.4.4", port: 53 };
 
 const r404 = new Response(null, {status: 404});
 const ECS_CODE = 'CLIENT_SUBNET';
@@ -47,8 +49,13 @@ async function handleRequest(request) {
         dnsMsg.flags |= (1 << 15)
         
         const modifiedBody = dnsPacket.encode(dnsMsg)
-      
-        const newRequest = new Request(DOH_ADDRESS, {
+
+	const socket = connect(DNS_ADDRESS);
+	const writer = socket.writable.getWriter();
+	await writer.write(modifiedBody);
+	res = new Response(socket.readable, { headers: { "Content-Type": "application/dns-message" } });
+	    
+       /* const newRequest = new Request(DOH_ADDRESS, {
           body: modifiedBody,
           headers: {
 	      'content-type': 'application/dns-message',
@@ -57,7 +64,7 @@ async function handleRequest(request) {
         });
       
         
-        res = await fetch(newRequest)
+        res = await fetch(newRequest)*/
         //console.log(res.status)
     } 
     return res;
