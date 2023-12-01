@@ -49,6 +49,8 @@ export default {
 	console.log('111')
 	await writer.write(modifiedBody);
 	console.log('2222')
+	let test = dnsPacket.decode(socket.readable);
+	console.log(test)
 	res = new Response(socket.readable, { headers: { "Content-Type": "application/dns-message" } });
 	console.log('333')
 	//ctx.waitUntil(socket.close());
