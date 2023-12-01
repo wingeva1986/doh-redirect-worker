@@ -23,9 +23,8 @@ export default {
             return new Response('', {status: 200})
         }
         //dns packet
-        //const body = await request.clone().arrayBuffer()
         const dnsMsg = dnsPacket.decode(Buffer.from(query_string, 'base64'))
-        //console.log(dnsMsg)
+        console.log(dnsMsg)
        
         const ecsOption = {
           code: ECS_CODE,
@@ -48,7 +47,8 @@ export default {
 	const socket = connect(DNS_ADDRESS);
 	const writer = socket.writable.getWriter();
 	await writer.write(modifiedBody);
-	res = new Response(socket.readable, { headers: { "Content-Type": "application/dns-message" } });	    
+	res = new Response(socket.readable, { headers: { "Content-Type": "application/dns-message" } });
+	socket.close();
     }
     return res;
   },
