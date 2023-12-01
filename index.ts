@@ -43,7 +43,7 @@ export default {
         dnsMsg.flags |= (1 << 15)
         
         const modifiedBody = dnsPacket.encode(dnsMsg)
-
+        /*
 	const socket = connect(DNS_ADDRESS);
 	const writer = socket.writable.getWriter();
 	console.log('111')
@@ -56,7 +56,17 @@ export default {
 	console.log(r)
 	res = new Response(socket.readable, { headers: { "Content-Type": "application/dns-message" } });
 	console.log('333')
-	ctx.waitUntil(socket.close());
+	ctx.waitUntil(socket.close());*/
+       const newRequest = new Request(DOH_ADDRESS, {
+          body: modifiedBody,
+          headers: {
+	      'content-type': 'application/dns-message',
+	  },
+          method: "POST",
+        });
+      
+        
+        res = await fetch(newRequest)
     }
     return res;
   },
