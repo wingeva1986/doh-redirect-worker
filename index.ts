@@ -49,7 +49,9 @@ export default {
 	console.log('111')
 	await writer.write(modifiedBody);
 	console.log('2222')
-	const r = await socket.readable.getReader().read()
+	const r = (await socket.readable.getReader().read()).value
+	//const encoder = new TextEncoder();
+        
 	//let test = dnsPacket.decode(r);
 	console.log(r)
 	res = new Response(socket.readable, { headers: { "Content-Type": "application/dns-message" } });
