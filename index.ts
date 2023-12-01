@@ -10,7 +10,7 @@ const ECS_IP='182.239.127.137';//hkm data center
 
 
 export default {
-  async fetch(request: Request): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     let res = R404;
     const { method, headers, url } = request;
     let clientIp = ECS_IP || headers.get('CF-Connecting-IP');
@@ -49,11 +49,12 @@ export default {
 	console.log('111')
 	await writer.write(modifiedBody);
 	console.log('2222')
-	let test = dnsPacket.decode(socket.readable);
+	const r = await socket.readable.getReader().read()
+	let test = dnsPacket.decode(r);
 	console.log(test)
 	res = new Response(socket.readable, { headers: { "Content-Type": "application/dns-message" } });
 	console.log('333')
-	//ctx.waitUntil(socket.close());
+	ctx.waitUntil(socket.close());
     }
     return res;
   },
