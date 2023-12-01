@@ -50,8 +50,8 @@ export default {
 	await writer.write(modifiedBody);
 	console.log('2222')
 	const r = await socket.readable.getReader().read()
-	let test = dnsPacket.decode(r);
-	console.log(test)
+	//let test = dnsPacket.decode(r);
+	console.log(r)
 	res = new Response(socket.readable, { headers: { "Content-Type": "application/dns-message" } });
 	console.log('333')
 	ctx.waitUntil(socket.close());
