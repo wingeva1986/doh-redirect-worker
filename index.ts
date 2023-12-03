@@ -1,6 +1,6 @@
 import * as dnsPacket from 'dns-packet'
 import { Buffer } from 'buffer'
-//import { connect } from 'cloudflare:sockets';
+import { connect } from 'cloudflare:sockets';
 
 const DOH_ADDRESS = "https://dns.google/dns-query"
 const DNS_ADDRESS = { hostname: "8.8.4.4", port: 53 };
