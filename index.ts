@@ -82,9 +82,9 @@ export default {
 	console.log(`connect耗时: ${endTime2 - startTime2} 毫秒`);*/
 	//ctx.waitUntil(socket.close());
        
-       const startTime = performance.now();
-       const modifiedBody = dnsPacket.encode(dnsMsg).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/\=/g, '');
-       console.log(modifiedBody)
+       //const startTime = performance.now();
+       const modifiedBody = dnsPacket.encode(dnsMsg).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/\=$/, '');
+       //console.log(modifiedBody)
        const newRequest = new Request(DOH_ADDRESS+ modifiedBody.substring(5), {
           //body: modifiedBody,
           headers: {
@@ -94,9 +94,9 @@ export default {
         });    
         
         res = await fetch(newRequest);
-        const endTime = performance.now();
-	console.log(`fetch耗时: ${endTime - startTime} 毫秒`);
-	if (res.ok) {
+        //const endTime = performance.now();
+	//console.log(`fetch耗时: ${endTime - startTime} 毫秒`);
+	/*if (res.ok) {
 		try{
 			  // Assume the response is a ReadableStream and needs to be read as ArrayBuffer
 			  const responseBodyBuffer = await res.clone().arrayBuffer();
@@ -108,7 +108,7 @@ export default {
 		    // Respond with a proper error response to the user/client
 		    //return new Response('Decoding error', {status: 500});
 		  }
-	}
+	}*/
 
     }
     return res;
