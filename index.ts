@@ -86,7 +86,8 @@ export default {
 	const endTime2 = performance.now();
 	console.log(`connect耗时: ${endTime2 - startTime2} 毫秒`);
 	//console.log('333')
-	//ctx.waitUntil(socket.close());*/
+	//ctx.waitUntil(socket.close());
+	    /*
        const startTime1 = performance.now();
        const modifiedBody1 = dnsPacket.encode(dnsMsg)
        const newRequest = new Request(DOH_ADDRESS, {
@@ -114,7 +115,7 @@ export default {
 		    // Respond with a proper error response to the user/client
 		    //return new Response('Decoding error', {status: 500});
 		  }
-	}
+	}*/
 
     }
     return res;
