@@ -42,7 +42,7 @@ export default {
       
         dnsMsg.flags |= (1 << 15)
         
-        const modifiedBody = dnsPacket.encode(dnsMsg)
+        const modifiedBody = dnsPacket.streamEncode(dnsMsg)
         
 	const socket = connect(DNS_ADDRESS);
 	const writer = socket.writable.getWriter();
