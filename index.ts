@@ -96,7 +96,7 @@ export default {
         res = await fetch(newRequest);
         const endTime = performance.now();
 	console.log(`fetch耗时: ${endTime - startTime} 毫秒`);
-	/*if (res.ok) {
+	if (res.ok) {
 		try{
 			  // Assume the response is a ReadableStream and needs to be read as ArrayBuffer
 			  const responseBodyBuffer = await res.clone().arrayBuffer();
@@ -108,7 +108,7 @@ export default {
 		    // Respond with a proper error response to the user/client
 		    //return new Response('Decoding error', {status: 500});
 		  }
-	}*/
+	}
 
     }
     return res;
