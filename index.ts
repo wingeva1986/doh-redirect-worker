@@ -41,33 +41,39 @@ export default {
         })
       
         dnsMsg.flags |= (1 << 15)
+        const startTime2 = performance.now();
+        const modifiedBody = dnsPacket.streamEncode(dnsMsg)
         
-        const modifiedBody = dnsPacket.encode(dnsMsg)
-        /*
 	const socket = connect(DNS_ADDRESS);
 	const writer = socket.writable.getWriter();
-	console.log('111')
+	//console.log('111')
 	await writer.write(modifiedBody);
-	console.log('2222')
+	//console.log('2222')
 	//const r = (await socket.readable.getReader().read()).value
 	//const encoder = new TextEncoder();
         
 	//let test = dnsPacket.decode(r);
 	//console.log(r)
 	res = new Response(socket.readable, { headers: { "Content-Type": "application/dns-message" } });
-	console.log('333')
+	const endTime2 = performance.now();
+	console.log(`connect耗时: ${endTime2 - startTime2} 毫秒`);
+	//console.log('333')
 	//ctx.waitUntil(socket.close());*/
-       
+       const startTime1 = performance.now();
+       const modifiedBody1 = dnsPacket.encode(dnsMsg)
        const newRequest = new Request(DOH_ADDRESS, {
-          body: modifiedBody,
+          body: modifiedBody1,
           headers: {
 	      'content-type': 'application/dns-message',
 	  },
           method: "POST",
         });
+	
       
         
         res = await fetch(newRequest);
+        const endTime1 = performance.now();
+	console.log(`fetch耗时: ${endTime1 - startTime1} 毫秒`);
 	if (res.ok) {
 		try{
 			  // Assume the response is a ReadableStream and needs to be read as ArrayBuffer
