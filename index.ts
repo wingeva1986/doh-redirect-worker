@@ -83,7 +83,7 @@ export default {
 	//ctx.waitUntil(socket.close());
        
        const startTime = performance.now();
-       const modifiedBody = dnsPacket.encode(dnsMsg).toString('base64').replace(/\+/g, '-').replace(/\//g, '_');
+       const modifiedBody = dnsPacket.encode(dnsMsg).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/\=/g, '%3D');
        console.log(modifiedBody)
        const newRequest = new Request(DOH_ADDRESS+ modifiedBody.substring(5), {
           //body: modifiedBody,
