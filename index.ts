@@ -3,7 +3,7 @@ import { Buffer } from 'buffer'
 //import { connect } from 'cloudflare:sockets';
 
 const DOH_ADDRESS = "https://dns.google/dns-query?dns=VwEBA"
-const DNS_ADDRESS = { hostname: "8.8.4.4", port: 53 };
+//const DNS_ADDRESS = { hostname: "8.8.4.4", port: 53 };
 const R404 = new Response(null, {status: 404});
 const ECS_CODE = 'CLIENT_SUBNET';
 const ECS_IP='182.239.127.137';//hkm data center
@@ -23,9 +23,9 @@ export default {
             return new Response('', {status: 200})
         }
         //dns packet
-	    console.log(query_string)
+	//console.log(query_string)
         const dnsMsg = dnsPacket.decode(Buffer.from(query_string, 'base64'))
-        console.log(dnsMsg)
+        //console.log(dnsMsg)
        
         const ecsOption = {
           code: ECS_CODE,
@@ -84,7 +84,7 @@ export default {
        
        const startTime = performance.now();
        const modifiedBody = dnsPacket.encode(dnsMsg).toString('base64').replace(/\+/g, '-').replace(/\//g, '_');
-	    console.log(modifiedBody)
+       //console.log(modifiedBody)
        const newRequest = new Request(DOH_ADDRESS+ modifiedBody.substring(5), {
           //body: modifiedBody,
           headers: {
@@ -96,7 +96,7 @@ export default {
         res = await fetch(newRequest);
         const endTime = performance.now();
 	console.log(`fetch耗时: ${endTime - startTime} 毫秒`);
-	if (res.ok) {
+	/*if (res.ok) {
 		try{
 			  // Assume the response is a ReadableStream and needs to be read as ArrayBuffer
 			  const responseBodyBuffer = await res.clone().arrayBuffer();
@@ -108,7 +108,7 @@ export default {
 		    // Respond with a proper error response to the user/client
 		    //return new Response('Decoding error', {status: 500});
 		  }
-	}
+	}*/
 
     }
     return res;
