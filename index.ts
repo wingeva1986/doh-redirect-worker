@@ -23,6 +23,7 @@ export default {
             return new Response('', {status: 200})
         }
         //dns packet
+	    console.log(query_string)
         const dnsMsg = dnsPacket.decode(Buffer.from(query_string, 'base64'))
         console.log(dnsMsg)
        
@@ -83,6 +84,7 @@ export default {
        
        const startTime = performance.now();
        const modifiedBody = dnsPacket.encode(dnsMsg).toString('base64');
+	    console.log(modifiedBody)
        const newRequest = new Request(DOH_ADDRESS+modifiedBody, {
           //body: modifiedBody,
           headers: {
