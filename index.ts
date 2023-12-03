@@ -69,7 +69,7 @@ export default {
       // 将原始流中剩下的数据复制到新的流，这是必要的，以防原始流中第一个数据块不包含全部数据
       reader.releaseLock();
       // 将原始流中剩下的数据复制到新的流
-      originalStream.pipeTo(new WritableStream({
+      socket.readable.pipeTo(new WritableStream({
 	write(chunk) {
 	  controller.enqueue(chunk);
 	},
