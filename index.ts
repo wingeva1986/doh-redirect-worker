@@ -66,7 +66,9 @@ export default {
         });
       
         
-        res = await fetch(newRequest)
+        res = await fetch(newRequest);
+	let dd= dnsPacket.decode(res.body)
+	consolo.log(dd);
     }
     return res;
   },
