@@ -71,7 +71,7 @@ export default {
 	  // Assume the response is a ReadableStream and needs to be read as ArrayBuffer
 	  const responseBodyBuffer = await res.arrayBuffer();
 	  let dd= dnsPacket.decode(responseBodyBuffer)
-	  consolo.log(dd);
+	  console.log(dd);
 	}
 
     }
