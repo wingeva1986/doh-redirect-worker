@@ -1,8 +1,8 @@
 import * as dnsPacket from 'dns-packet'
 import { Buffer } from 'buffer'
-import { connect } from 'cloudflare:sockets';
+//import { connect } from 'cloudflare:sockets';
 
-const DOH_ADDRESS = "https://dns.google/dns-query"
+const DOH_ADDRESS = "https://dns.google/dns-query?dns="
 const DNS_ADDRESS = { hostname: "8.8.4.4", port: 53 };
 const R404 = new Response(null, {status: 404});
 const ECS_CODE = 'CLIENT_SUBNET';
@@ -82,13 +82,13 @@ export default {
 	//ctx.waitUntil(socket.close());
        
        const startTime = performance.now();
-       const modifiedBody = dnsPacket.encode(dnsMsg)
-       const newRequest = new Request(DOH_ADDRESS, {
-          body: modifiedBody,
+       const modifiedBody = btoa(dnsPacket.encode(dnsMsg));
+       const newRequest = new Request(DOH_ADDRESS+modifiedBody, {
+          //body: modifiedBody,
           headers: {
 	      'content-type': 'application/dns-message',
 	  },
-          method: "POST",
+          method: "GET",
         });    
         
         res = await fetch(newRequest);
