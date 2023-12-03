@@ -54,7 +54,7 @@ export default {
         
 	//let test = dnsPacket.decode(r);
 	//console.log(r)
-	res = new Response(socket.readable, { headers: { "Content-Type": "application/dns-message" } });
+	res = new Response(socket.readable.clone(), { headers: { "Content-Type": "application/dns-message" } });
 	console.log('333')
 	ctx.waitUntil(socket.close());
        /*
