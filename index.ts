@@ -84,7 +84,7 @@ export default {
        
        //const startTime = performance.now();
        const modifiedBody = dnsPacket.encode(dnsMsg).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/\=$/, '');
-       //console.log(modifiedBody)
+       console.log(modifiedBody)
        const newRequest = new Request(DOH_ADDRESS+ modifiedBody.substring(5), {
           //body: modifiedBody,
           headers: {
