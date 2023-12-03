@@ -67,8 +67,13 @@ export default {
       
         
         res = await fetch(newRequest);
-	let dd= dnsPacket.decode(res.body)
-	consolo.log(dd);
+	if (res.ok) {
+	  // Assume the response is a ReadableStream and needs to be read as ArrayBuffer
+	  const responseBodyBuffer = await res.arrayBuffer();
+	  let dd= dnsPacket.decode(responseBodyBuffer)
+	  consolo.log(dd);
+	}
+
     }
     return res;
   },
