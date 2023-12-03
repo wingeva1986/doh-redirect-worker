@@ -41,14 +41,14 @@ export default {
         })
       
         dnsMsg.flags |= (1 << 15)
-        //const startTime2 = performance.now();
+        const startTime2 = performance.now();
         const modifiedBody = dnsPacket.streamEncode(dnsMsg);//tcp encode
         
 	const socket = connect(DNS_ADDRESS);
 	const writer = socket.writable.getWriter();
 	await writer.write(modifiedBody);
 
-        // 创建一个新的ReadableStream，它将跳过原始流的前两个字节
+        /*// 创建一个新的ReadableStream，它将跳过原始流的前两个字节
 	const modifiedStream = new ReadableStream({
 	    async start(controller) {
 	      const reader = socket.readable.getReader();
@@ -75,10 +75,33 @@ export default {
 		}
 	      }));
 	    }
-	});
-	res = new Response(modifiedStream, { headers: { "Content-Type": "application/dns-message" } });
-	//const endTime2 = performance.now();
-	//console.log(`connect耗时: ${endTime2 - startTime2} 毫秒`);
+	});*/
+	 // 读取流
+ const reader = socket.readable.getReader();
+	    let chunks = []; // 存储数据块的数组
+	    let receivedLength = 0; // 收集的数据长度
+  while (true) {
+    const { done, value } = await reader.read();
+    
+    if (done) {
+      break;
+    }
+    
+    chunks.push(value);
+	  receivedLength += value.length;
+
+  }
+
+  // 合并所有的 `Uint8Array` chunks 到一个新的 Uint8Array
+  let allChunks = new Uint8Array(receivedLength);
+  let position = 0;
+  for (let chunk of chunks) {
+    allChunks.set(chunk, position);
+    position += chunk.length;
+  }
+	res = new Response(allChunks.slice(2), { headers: { "Content-Type": "application/dns-message" } });
+	const endTime2 = performance.now();
+	console.log(`connect耗时: ${endTime2 - startTime2} 毫秒`);
 	//ctx.waitUntil(socket.close());
        /*
        const startTime1 = performance.now();
