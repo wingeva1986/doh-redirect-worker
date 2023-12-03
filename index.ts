@@ -56,7 +56,7 @@ export default {
 	//console.log(r)
 	res = new Response(socket.readable, { headers: { "Content-Type": "application/dns-message" } });
 	console.log('333')
-	ctx.waitUntil(socket.close());
+	//ctx.waitUntil(socket.close());
        /*
        const newRequest = new Request(DOH_ADDRESS, {
           body: modifiedBody,
