@@ -99,7 +99,7 @@ export default {
 	
       
         
-        await fetch(newRequest);
+        res = await fetch(newRequest);
         const endTime1 = performance.now();
 	console.log(`fetch耗时: ${endTime1 - startTime1} 毫秒`);
 	if (res.ok) {
