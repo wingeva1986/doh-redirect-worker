@@ -54,7 +54,35 @@ export default {
         
 	//let test = dnsPacket.decode(r);
 	//console.log(r)
-	res = new Response(socket.readable, { headers: { "Content-Type": "application/dns-message" } });
+	  // 创建一个新的ReadableStream，它将跳过原始流的前两个字节
+  const modifiedStream = new ReadableStream({
+    async start(controller) {
+      const reader = socket.readable.getReader();
+      const { done, value } = await reader.read(); // 读取原始流中的第一个数据块
+      if (done) {
+	controller.close();
+	return;
+      }
+      // 假定原始流中第一个数据块包含了我们要跳过的两个字节，并且还有额外的数据
+      // 跳过前两个字节，并且将剩下的数据入队到新的流中
+      controller.enqueue(value.slice(2));
+      // 将原始流中剩下的数据复制到新的流，这是必要的，以防原始流中第一个数据块不包含全部数据
+      reader.releaseLock();
+      // 将原始流中剩下的数据复制到新的流
+      originalStream.pipeTo(new WritableStream({
+	write(chunk) {
+	  controller.enqueue(chunk);
+	},
+	close() {
+	  controller.close();
+	},
+	abort(err) {
+	  controller.error(err);
+	}
+      }));
+    }
+  });
+	res = new Response(modifiedStream, { headers: { "Content-Type": "application/dns-message" } });
 	const endTime2 = performance.now();
 	console.log(`connect耗时: ${endTime2 - startTime2} 毫秒`);
 	//console.log('333')
