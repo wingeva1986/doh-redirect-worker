@@ -70,7 +70,7 @@ export default {
 	if (res.ok) {
 		try{
 			  // Assume the response is a ReadableStream and needs to be read as ArrayBuffer
-			  const responseBodyBuffer = await res.arrayBuffer();
+			  const responseBodyBuffer = await res.clone().arrayBuffer();
 			  let dd= dnsPacket.decode(Buffer.from(responseBodyBuffer))
 			  console.log(dd);
 		  } catch (error) {
