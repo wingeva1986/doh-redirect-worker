@@ -25,7 +25,7 @@ export default {
         //dns packet
 	//console.log(query_string)
         const dnsMsg = dnsPacket.decode(Buffer.from(query_string, 'base64'))
-        //console.log(dnsMsg)
+        console.log(dnsMsg)
        
         const ecsOption = {
           code: ECS_CODE,
@@ -84,7 +84,7 @@ export default {
        
        const startTime = performance.now();
        const modifiedBody = dnsPacket.encode(dnsMsg).toString('base64').replace(/\+/g, '-').replace(/\//g, '_');
-       //console.log(modifiedBody)
+       console.log(modifiedBody)
        const newRequest = new Request(DOH_ADDRESS+ modifiedBody.substring(5), {
           //body: modifiedBody,
           headers: {
