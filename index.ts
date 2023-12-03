@@ -71,7 +71,8 @@ export default {
 		try{
 			  // Assume the response is a ReadableStream and needs to be read as ArrayBuffer
 			  const responseBodyBuffer = await res.arrayBuffer();
-			  let dd= dnsPacket.decode(responseBodyBuffer)
+			 const responseBodyUint8Array =new Uint8Array(responseBodyBuffer);
+			  let dd= dnsPacket.decode(responseBodyUint8Array)
 			  console.log(dd);
 		  } catch (error) {
 		    // Properly handle decoding errors here
