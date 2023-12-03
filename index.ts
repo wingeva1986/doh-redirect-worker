@@ -1,6 +1,6 @@
 import * as dnsPacket from 'dns-packet'
 import { Buffer } from 'buffer'
-import { connect } from 'cloudflare:sockets';
+//import { connect } from 'cloudflare:sockets';
 
 const DOH_ADDRESS = "https://dns.google/dns-query"
 const DNS_ADDRESS = { hostname: "8.8.4.4", port: 53 };
@@ -42,8 +42,8 @@ export default {
       
         dnsMsg.flags |= (1 << 15)
         
-        const modifiedBody = dnsPacket.streamEncode(dnsMsg)
-        
+        const modifiedBody = dnsPacket.encode(dnsMsg)
+        /*
 	const socket = connect(DNS_ADDRESS);
 	const writer = socket.writable.getWriter();
 	console.log('111')
@@ -56,8 +56,8 @@ export default {
 	//console.log(r)
 	res = new Response(socket.readable, { headers: { "Content-Type": "application/dns-message" } });
 	console.log('333')
-	//ctx.waitUntil(socket.close());
-       /*
+	//ctx.waitUntil(socket.close());*/
+       
        const newRequest = new Request(DOH_ADDRESS, {
           body: modifiedBody,
           headers: {
@@ -80,7 +80,7 @@ export default {
 		    // Respond with a proper error response to the user/client
 		    //return new Response('Decoding error', {status: 500});
 		  }
-	}*/
+	}
 
     }
     return res;
