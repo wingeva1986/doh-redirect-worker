@@ -68,10 +68,17 @@ export default {
         
         res = await fetch(newRequest);
 	if (res.ok) {
-	  // Assume the response is a ReadableStream and needs to be read as ArrayBuffer
-	  const responseBodyBuffer = await res.arrayBuffer();
-	  let dd= dnsPacket.decode(responseBodyBuffer)
-	  console.log(dd);
+		try{
+			  // Assume the response is a ReadableStream and needs to be read as ArrayBuffer
+			  const responseBodyBuffer = await res.arrayBuffer();
+			  let dd= dnsPacket.decode(responseBodyBuffer)
+			  console.log(dd);
+		  } catch (error) {
+		    // Properly handle decoding errors here
+		    console.error('Decoding error:', error.message);
+		    // Respond with a proper error response to the user/client
+		    //return new Response('Decoding error', {status: 500});
+		  }
 	}
 
     }
