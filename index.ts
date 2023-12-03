@@ -2,7 +2,7 @@ import * as dnsPacket from 'dns-packet'
 import { Buffer } from 'buffer'
 //import { connect } from 'cloudflare:sockets';
 
-const DOH_ADDRESS = "https://dns.google/dns-query?dns=AAABA";//id=0
+const DOH_ADDRESS = "https://dns.google/dns-query?dns=";//id=0,AAABA
 //const DNS_ADDRESS = { hostname: "8.8.4.4", port: 53 };
 const R404 = new Response(null, {status: 404});
 const ECS_CODE = 'CLIENT_SUBNET';
@@ -84,8 +84,8 @@ export default {
        
        //const startTime = performance.now();
        const modifiedBody = dnsPacket.encode(dnsMsg).toString('base64').split("=")[0].replace(/\+/g, '-').replace(/\//g, '_');
-       console.log(modifiedBody)
-       const newRequest = new Request(DOH_ADDRESS+ modifiedBody.substring(5), {
+       //console.log(modifiedBody)
+       const newRequest = new Request(DOH_ADDRESS+ modifiedBody, {
           //body: modifiedBody,
           headers: {
 	      'accept': 'application/dns-message',
