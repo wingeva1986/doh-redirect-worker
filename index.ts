@@ -82,7 +82,7 @@ export default {
 	//ctx.waitUntil(socket.close());
        
        const startTime = performance.now();
-       const modifiedBody = btoa(dnsPacket.encode(dnsMsg));
+       const modifiedBody = dnsPacket.encode(dnsMsg).toString('base64');
        const newRequest = new Request(DOH_ADDRESS+modifiedBody, {
           //body: modifiedBody,
           headers: {
