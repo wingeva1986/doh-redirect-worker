@@ -2,7 +2,7 @@ import * as dnsPacket from 'dns-packet'
 import { Buffer } from 'buffer'
 //import { connect } from 'cloudflare:sockets';
 
-const DOH_ADDRESS = "https://dns.google/dns-query?dns=";//id=0,AAABA
+const DOH_ADDRESS = "https://2fd5ghscml.cloudflare-gateway.com/dns-query?dns=";//id=0,AAABA
 //const DNS_ADDRESS = { hostname: "8.8.4.4", port: 53 };
 const R404 = new Response(null, {status: 404});
 const ECS_CODE = 'CLIENT_SUBNET';
@@ -14,7 +14,7 @@ export default {
     let res = R404;
     const { method, headers, url } = request;
     let clientIp = ECS_IP || headers.get('CF-Connecting-IP');
-    const sourcePrefixLength = clientIp.includes(':') ? 48 : 24;
+    const sourcePrefixLength = clientIp.includes(':') ? 48 : 32;
     const searchParams = new URL(url).searchParams;
 
     if (method == 'GET' && searchParams.has('dns')) {
